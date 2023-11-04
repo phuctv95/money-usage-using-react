@@ -51,18 +51,20 @@ export function DayCostBlock({ dayCost }: Readonly<{ dayCost: DayCost }>) {
 
   return (
     <div className="shadow-md p-3 border-2 inline-block w-full">
-      <div className="relative">
+      <div className="relative mb-2">
         <DatePicker
           value={dayCost.date}
           onChange={handleChangeDate}
           format="DD/MM"
-          className="text-xl font-bold mb-2"
+          className="text-xl font-bold"
         />
         <Button
           onClick={handleRemove}
-          className="absolute right-0 font-normal border-0 font-mono text-gray-400 scale-y-90"
+          borderless={true}
+          isBold={false}
+          className="absolute right-0 font-mono text-gray-400 scale-y-90"
         >
-          X
+          x
         </Button>
       </div>
       <hr className="mb-3" />
