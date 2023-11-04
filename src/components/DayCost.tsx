@@ -91,7 +91,9 @@ export function DayCostBlock({ dayCost }: Readonly<{ dayCost: DayCost }>) {
           value={cost}
           onChange={handleCostChange}
           placeholder="... (000 VND)"
+          type="number"
           className="col-span-2 h-8 text-xs px-1"
+          onKeyUp={(key) => key === 'Enter' && handleAddCost()}
         />
         <Button onClick={handleAddCost} className="col-span-1 h-8 text-xs px-0">
           Add
