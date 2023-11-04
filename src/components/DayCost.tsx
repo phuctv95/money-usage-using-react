@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react';
+import { useState } from 'react';
 import {
   useMoneyUsage,
   useMoneyUsageDispatch,
@@ -49,8 +49,16 @@ export function DayCostBlock({ dayCost }: Readonly<{ dayCost: DayCost }>) {
     setCost('');
   }
 
+  function handleDeleteCost(id: number) {
+    moneyUsageDispatch({
+      type: 'deleted_cost',
+      costId: id,
+      dayCostId: dayCost.id,
+    } as CostActions.Delete);
+  }
+
   return (
-    <div className="group shadow-md p-3 border-2 inline-block w-full">
+    <div className="group/card shadow-md p-3 border-2 inline-block w-full">
       <div className="flex items-center mb-2">
         <DatePicker
           value={dayCost.date}
@@ -62,40 +70,57 @@ export function DayCostBlock({ dayCost }: Readonly<{ dayCost: DayCost }>) {
           onClick={handleRemove}
           borderless={true}
           isBold={false}
-          className="right-0 text-gray-400 scale-y-90 opacity-0 group-hover:opacity-100"
+          className="right-0 text-gray-400 scale-y-90 opacity-0 group-hover/card:opacity-100"
         >
           <span className="material-symbols-outlined align-middle">delete</span>
         </Button>
       </div>
       <hr className="mb-3" />
-      <div className="grid grid-cols-6 gap-1 text-sm">
-        {costs.map((c) => (
-          <Fragment key={c.id}>
-            <div className="col-span-4">{c.description}</div>
-            <div className="col-span-2">
-              {c.value.toLocaleString()}
-              <span className="text-xs italic ml-1">VND</span>
-            </div>
-          </Fragment>
-        ))}
-      </div>
+      {costs.map((c) => (
+        <div
+          key={c.id}
+          className="group/row grid grid-cols-10 gap-1 items-center text-sm h-10"
+        >
+          <div className="col-span-6">{c.description}</div>
+          <div className="col-span-3">
+            {c.value.toLocaleString()}
+            <span className="text-xs italic ml-1">VND</span>
+          </div>
+          <div className="col-span-1 justify-self-end">
+            <Button
+              borderless={true}
+              isBold={false}
+              onClick={() => handleDeleteCost(c.id)}
+              className="text-gray-400 hidden group-hover/row:inline-block"
+            >
+              <span className="material-symbols-outlined align-middle">
+                close
+              </span>
+            </Button>
+          </div>
+        </div>
+      ))}
       {costs.length > 0 && <hr className="my-3" />}
-      <div className="grid grid-cols-6 gap-1">
+      <div className="grid grid-cols-10 gap-1">
         <Input
           value={description}
           onChange={handleDescriptionChange}
           placeholder="Pay for..."
-          className="col-span-3 h-8 text-xs px-1"
+          className="col-span-6 h-8 text-xs px-1"
         />
         <Input
           value={cost}
           onChange={handleCostChange}
           placeholder="... (000 VND)"
           type="number"
-          className="col-span-2 h-8 text-xs px-1"
+          className="col-span-3 h-8 text-xs px-1"
           onKeyUp={(key) => key === 'Enter' && handleAddCost()}
         />
-        <Button onClick={handleAddCost} className="col-span-1 h-8 text-xs px-0">
+        <Button
+          onClick={handleAddCost}
+          paddingless={true}
+          className="col-span-1 h-8 text-xs"
+        >
           Add
         </Button>
       </div>

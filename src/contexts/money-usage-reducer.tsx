@@ -27,6 +27,12 @@ export namespace CostActions {
     description: string;
     cost: number;
   };
+
+  export type Delete = {
+    type: 'deleted_cost';
+    costId: number;
+    dayCostId: number;
+  };
 }
 
 export type MoneyUsageAction =
@@ -34,7 +40,9 @@ export type MoneyUsageAction =
   | DayCostActions.Add
   | DayCostActions.Remove
   | CostActions.Add
+  | CostActions.Delete
   | undefined;
+
 export function dayCostsReducer(
   moneyUsage: MoneyUsage,
   action: MoneyUsageAction
@@ -71,6 +79,20 @@ export function dayCostsReducer(
                 costIds: [...x.costIds, newCost.id],
               }
             : x
+        ),
+      };
+      MoneyUsageStorage.saveToStorage(result);
+      return result;
+    case 'deleted_cost':
+      result = {
+        costs: moneyUsage.costs.filter((c) => c.id !== action.costId),
+        dayCosts: moneyUsage.dayCosts.map((dc) =>
+          dc.id === action.dayCostId
+            ? {
+                ...dc,
+                costIds: dc.costIds.filter((id) => id !== action.costId),
+              }
+            : dc
         ),
       };
       MoneyUsageStorage.saveToStorage(result);
