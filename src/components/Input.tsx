@@ -1,6 +1,7 @@
 export function Input({
   placeholder,
   className,
+  size = 'normal',
   value,
   type = 'text',
   onChange,
@@ -8,6 +9,7 @@ export function Input({
 }: Readonly<{
   placeholder?: string;
   className?: string;
+  size?: 'normal' | 'small';
   value?: string;
   type?: 'text' | 'number';
   onChange?: (text: string) => void;
@@ -22,7 +24,8 @@ export function Input({
       onKeyUp={(e) => onKeyUp?.(e.key)}
       className={
         'border-2 border-slate-200 bg-slate-100 rounded outline-none py-1 px-2 focus:border-slate-400 ' +
-        (className ?? '')
+        (className ?? '') +
+        (size === 'normal' ? '' : ' h-8 text-xs')
       }
     />
   );
