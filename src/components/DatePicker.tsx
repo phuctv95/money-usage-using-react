@@ -5,11 +5,15 @@ export function DatePicker({
   value,
   format,
   className,
+  size = 'normal',
+  isBold = false,
   onChange,
 }: Readonly<{
   value: Date;
   format: string;
   className?: string;
+  size?: 'large' | 'normal';
+  isBold?: boolean;
   onChange?: (value: Date) => void;
 }>) {
   const datePickerRef = useRef<HTMLInputElement>(null);
@@ -27,7 +31,11 @@ export function DatePicker({
     <div className={'relative inline-block ' + (className ?? '')}>
       <button
         onClick={handClickDate}
-        className="hover:bg-slate-200 hover:outline-slate-200 hover:outline hover:outline-2 cursor-pointer rounded"
+        className={
+          'hover:bg-slate-200 hover:outline-slate-200 hover:outline hover:outline-2 cursor-pointer rounded' +
+          (size === 'normal' ? '' : ' text-xl') +
+          (isBold ? ' font-bold' : '')
+        }
       >
         {moment(value).format(format)}
       </button>

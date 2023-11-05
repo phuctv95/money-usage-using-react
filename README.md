@@ -44,3 +44,10 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+# Development
+
+To avoid margin, padding, font bold overriding issues:
+
+- Internal: defines the styles - the colors, the shapes, the sizes, the fonts.
+- External: defines the layout - where it it locates.

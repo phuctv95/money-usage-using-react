@@ -1,6 +1,7 @@
 export function Button({
   children,
   className,
+  size = 'normal',
   onClick,
   borderless = false,
   paddingless = false,
@@ -8,6 +9,7 @@ export function Button({
 }: Readonly<{
   children: any;
   className?: string;
+  size?: 'normal' | 'small';
   onClick?: () => void;
   borderless?: boolean;
   paddingless?: boolean;
@@ -20,7 +22,8 @@ export function Button({
         (className ? ` ${className}` : '') +
         (borderless ? '' : ' border-2') +
         (paddingless ? '' : ' px-2') +
-        (isBold ? ' font-semibold' : '')
+        (isBold ? ' font-semibold' : '') +
+        (size === 'normal' ? '' : ' h-8 text-xs')
       }
       onClick={onClick}
     >

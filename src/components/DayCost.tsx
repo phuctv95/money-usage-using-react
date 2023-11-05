@@ -8,6 +8,7 @@ import { DayCost } from '../models/day-cost';
 import { Button } from './Button';
 import { Input } from './Input';
 import { DatePicker } from './DatePicker';
+import { Icon } from './Icon';
 export function DayCostBlock({ dayCost }: Readonly<{ dayCost: DayCost }>) {
   const moneyUsage = useMoneyUsage();
   const moneyUsageDispatch = useMoneyUsageDispatch();
@@ -64,15 +65,17 @@ export function DayCostBlock({ dayCost }: Readonly<{ dayCost: DayCost }>) {
           value={dayCost.date}
           onChange={handleChangeDate}
           format="DD/MM"
-          className="grow text-xl font-bold"
+          size="large"
+          isBold={true}
+          className="grow"
         />
         <Button
           onClick={handleRemove}
           borderless={true}
           isBold={false}
-          className="right-0 text-gray-400 scale-y-90 opacity-0 group-hover/card:opacity-100"
+          className="right-0 invisible group-hover/card:visible"
         >
-          <span className="material-symbols-outlined align-middle">delete</span>
+          <Icon name="delete" />
         </Button>
       </div>
       <hr className="mb-3" />
@@ -91,11 +94,9 @@ export function DayCostBlock({ dayCost }: Readonly<{ dayCost: DayCost }>) {
               borderless={true}
               isBold={false}
               onClick={() => handleDeleteCost(c.id)}
-              className="text-gray-400 hidden group-hover/row:inline-block"
+              className="invisible group-hover/row:visible"
             >
-              <span className="material-symbols-outlined align-middle">
-                close
-              </span>
+              <Icon name="close" />
             </Button>
           </div>
         </div>
@@ -106,20 +107,23 @@ export function DayCostBlock({ dayCost }: Readonly<{ dayCost: DayCost }>) {
           value={description}
           onChange={handleDescriptionChange}
           placeholder="Pay for..."
-          className="col-span-6 h-8 text-xs px-1"
+          size="small"
+          className="col-span-6"
         />
         <Input
           value={cost}
           onChange={handleCostChange}
           placeholder="... (000 VND)"
           type="number"
-          className="col-span-3 h-8 text-xs px-1"
+          size="small"
+          className="col-span-3"
           onKeyUp={(key) => key === 'Enter' && handleAddCost()}
         />
         <Button
           onClick={handleAddCost}
           paddingless={true}
-          className="col-span-1 h-8 text-xs"
+          size="small"
+          className="col-span-1"
         >
           Add
         </Button>
